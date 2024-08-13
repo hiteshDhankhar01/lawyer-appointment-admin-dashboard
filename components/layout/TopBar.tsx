@@ -11,7 +11,7 @@ const TopBar: React.FC = () => {
     const pathname = usePathname();
 
     return (
-        <div className='sticky top-0 z-20 w-full flex justify-between items-center px-6 py-3 shadow-lg lg:hidden border-b-[1px] rounded-b-md border-gray-700 '>
+        <div className='sticky top-0 z-20 w-full flex justify-between items-center px-6 py-3 shadow-lg lg:hidden border-b-[1px] rounded-b-md border-gray-700 backdrop-blur-xl'>
             <h2 className='text-2xl font-extrabold text-white tracking-wider'>
                 Lawyer<span className='text-blue-500'>Meet</span>
             </h2>

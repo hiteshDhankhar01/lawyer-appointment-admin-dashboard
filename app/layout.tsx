@@ -26,7 +26,7 @@ export default function RootLayout({
         "font-sans antialiased bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950",
         fontSans.variable
       )}>
-        <div className="flex max-lg:flex-col  text-gray-500 font-extralight">
+        <div className="flex max-lg:flex-col  text-gray-500 font-extralight ">
           <TopBar />
           <SideBar />
           <div className="flex-1">{children}</div>
