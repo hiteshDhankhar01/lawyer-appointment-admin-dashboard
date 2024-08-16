@@ -29,7 +29,7 @@ export default function RootLayout({
         <div className="flex max-lg:flex-col  text-gray-500 font-extralight ">
           <TopBar />
           <SideBar />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 p-2">{children}</div>
         </div>
       </body>
     </html>
