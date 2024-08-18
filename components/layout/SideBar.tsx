@@ -15,8 +15,8 @@ const SideBar: React.FC = () => {
       </h2>
       <div className='flex flex-col gap-3'>
         {navLink.map((link, index) => (
-          <Link href={link.url} key={index} className={`flex items-center gap-4 text-lg transition-transform duration-300 ease-in-out p-4 px-10 rounded-lg  transform hover:translate-x-1
-            ${pathname === link.url ? "text-blue-500 shadow-lg scale-105" : "text-white"} hover:text-blue-400`}>
+          <Link href={link.url} key={index} className={`flex items-center gap-4 text-lg transition-transform duration-300 ease-in-out p-4 px-10 rounded-lg    hover:bg-gray-800
+            ${pathname === link.url ? "text-blue-500 bg-gray-800 translate-x-1" : "text-white"} hover:text-blue-400`}>
             <div className='text-xl'>{link.icon}</div>
             <label className='cursor-pointer'>{link.label}</label>
           </Link>

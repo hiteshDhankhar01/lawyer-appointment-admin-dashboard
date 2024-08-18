@@ -12,13 +12,13 @@ export const navLink = [
         label: "Appointments"
     },
     {
-        url: "/users",
-        icon: <Users strokeWidth={1}  />,
-        label: "Users"
-    },
-    {
         url: "/blogs",
         icon: <Shapes strokeWidth={1} />,
         label: "Blogs"
     },
+    {
+        url: "/users",
+        icon: <Users strokeWidth={1} />,
+        label: "Users"
+    }
 ]

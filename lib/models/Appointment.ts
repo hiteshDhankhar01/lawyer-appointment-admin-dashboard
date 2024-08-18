@@ -4,11 +4,15 @@ const appointmentSchema = new mongoose.Schema({
     name: String,
     email: String,
     phoneNo: Number,
-    date: Date,
+    appointmentDate: Date,
+    appointmentTime: String,
     service: String,
     status: String,
-    message: String,
-    userId: String,
+    notes: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
     createdAt: {
         type: Date,
         default: Date.now

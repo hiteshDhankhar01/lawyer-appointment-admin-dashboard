@@ -114,10 +114,12 @@ const BlogForm2: React.FC<BlogFormProps> = ({ initialData }) => {
                 />
                 {errors.paragraph && <p className="mt-2 text-red-500 text-sm">{errors.paragraph.message}</p>}
             </div>
+            <div className='text-right'>
+                <button type="submit" className="px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg shadow-lg text-lg font-semibold tracking-wide text-white transition-all transform ">
+                    Submit
+                </button>
+            </div>
 
-            <button type="submit" className="px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg shadow-lg text-lg font-semibold tracking-wide text-white transition-all transform ">
-                Submit
-            </button>
         </form>
 
     );
