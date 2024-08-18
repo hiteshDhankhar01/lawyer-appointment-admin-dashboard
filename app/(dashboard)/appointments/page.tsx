@@ -1,5 +1,5 @@
 import DataTable from '@/components/custom ui/DataTable';
-import { columnsAppintment } from '@/components/user/userColums';
+import { columnsAppintment } from '@/lib/ColumnDef';
 import { getAllAppointments } from '@/lib/action/action';
 import { Separator } from '@radix-ui/react-separator';
 import React from 'react'

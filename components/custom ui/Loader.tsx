@@ -7,7 +7,7 @@ const Loader: React.FC = () => {
                 {[...Array(3)].map((_, i) => (
                     <div
                         key={i}
-                        className="w-4 h-4 bg-cyan-500 rounded-full animate-bounce"
+                        className="w-4 h-4 bg-gray-100 rounded-full animate-bounce"
                         style={{
                             animationDelay: `${i * 0.2}s`,
                         }}

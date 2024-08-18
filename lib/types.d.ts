@@ -14,3 +14,23 @@ type AppointmentType = {
     status: string;
     message: string;
 }
+
+type BlogType = {
+    title: string;
+    excerpt: string,
+    image: string,
+    paragraph: string,
+}
+
+type FormData = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    age: number;
+    gender: string;
+    address: Address;
+    hobbies: Hobby[];
+    startDate: Date;
+    subscribe: boolean;
+    referral: string;
+}

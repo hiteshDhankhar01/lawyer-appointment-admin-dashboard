@@ -1,7 +1,7 @@
 import { Separator } from "@radix-ui/react-separator";
 import React from "react";
 import { getAllUsers, getTotalUsers } from "@/lib/action/action";
-import { columns } from "@/components/user/userColums";
+import { columnsUser } from "@/lib/ColumnDef";
 import DataTable from "@/components/custom ui/DataTable";
 
 
@@ -19,7 +19,8 @@ const User: React.FC = async () => {
         <div className="px-10 py-5">
             <p className="text-4xl text-white w-full font-extrabold border-b-[2px] border-gray-700 mb-8">Users</p>
             <Separator className="bg-gray-800" />
-            <DataTable columns={columns} data={plainCustomers} searchKey='name' />
+            <DataTable columns={columnsUser} data={plainCustomers}
+                searchKey='name' />
         </div>
     )
 }

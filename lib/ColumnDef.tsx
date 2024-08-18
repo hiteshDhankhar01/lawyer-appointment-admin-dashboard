@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<UserType>[] = [
+export const columnsUser: ColumnDef<UserType>[] = [
     {
         accessorKey: "name",
         header: "Name",
@@ -46,5 +46,24 @@ export const columnsAppintment: ColumnDef<AppointmentType>[] = [
     {
         accessorKey: "message",
         header: "Message",
+    },
+];
+
+export const columnsBlog: ColumnDef<BlogType>[] = [
+    {
+        accessorKey: "title",
+        header: "Title",
+    },
+    {
+        accessorKey: "excerpt",
+        header: "Excerpt",
+    },
+    {
+        accessorKey: "image",
+        header: "Image",
+    },
+    {
+        accessorKey: "paragraph",
+        header: "Paragraph",
     },
 ];

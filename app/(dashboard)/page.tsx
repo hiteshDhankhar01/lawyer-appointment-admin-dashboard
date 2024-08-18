@@ -4,11 +4,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTotalAppointments, getTotalBlogs, getTotalUsers } from "@/lib/action/action";
 import { Separator } from "@radix-ui/react-separator";
 import { CalendarCheck2, LayoutDashboard, Shapes, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  // const totalUSers = await getTotalUsers()
-  // const totalBlogs = await getTotalBlogs()
-  // const totalAppointmnets = await getTotalAppointments()
+  const [totalUsers, setTotalUsers] = useState<number | null>(null);
+    const [totalBlogs, setTotalBlogs] = useState<number | null>(null);
+    const [totalAppointments, setTotalAppointments] = useState<number | null>(null);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const users = await getTotalUsers();
+    //         const blogs = await getTotalBlogs();
+    //         const appointments = await getTotalAppointments();
+
+    //         setTotalUsers(users);
+    //         setTotalBlogs(blogs);
+    //         setTotalAppointments(appointments);
+    //     };
+
+    //     fetchData();
+    // }, []);
 
   return (
     <div className="px-8 py-10 min-h-screen">
@@ -33,7 +48,10 @@ export default function Home() {
               <Users className="text-gray-400" strokeWidth={1.5} />
             </CardHeader>
             <CardContent>
-              <p className="font-bold text-2xl">24</p>
+              <p className="font-bold text-2xl">
+            44
+
+              </p>
             </CardContent>
           </Card>
 
