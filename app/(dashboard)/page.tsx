@@ -1,10 +1,15 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getTotalAppointments, getTotalBlogs, getTotalUsers } from "@/lib/action/action";
 import { Separator } from "@radix-ui/react-separator";
 import { CalendarCheck2, LayoutDashboard, Shapes, Users } from "lucide-react";
 
 export default function Home() {
+  // const totalUSers = await getTotalUsers()
+  // const totalBlogs = await getTotalBlogs()
+  // const totalAppointmnets = await getTotalAppointments()
+
   return (
     <div className="px-8 py-10 min-h-screen">
       <p className="text-4xl text-white w-full font-extrabold border-b-[2px] border-gray-700 mb-8">
@@ -18,7 +23,7 @@ export default function Home() {
               <CalendarCheck2 className="text-gray-400" strokeWidth={1.5} />
             </CardHeader>
             <CardContent>
-              <p className="font-bold text-2xl">54</p>
+              <p className="font-bold text-2xl">34</p>
             </CardContent>
           </Card>
 

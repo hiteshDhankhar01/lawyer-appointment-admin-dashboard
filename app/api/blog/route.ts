@@ -10,7 +10,7 @@ export const POST = async (req: NextRequest) => {
         const { title, excerpt, image, paragraph } = await req.json()
 
         if (!title || !excerpt || !image || !paragraph) {
-            return new NextResponse("Not enough data tocreatea blog", { status: 400 })
+            return NextResponse.json("Not enough data to create a blog", { status: 400 })
         }
 
         const newBlog = await Blog.create({
@@ -18,8 +18,8 @@ export const POST = async (req: NextRequest) => {
         })
 
         await newBlog.save()
-        return new NextResponse(newBlog, { status: 200 })
+        return NextResponse.json({ success: true, data: newBlog }, { status: 200 })
     } catch (error) {
-        return new NextResponse("Internal Error", { status: 500 })
+        return  NextResponse.json("Internal Error", { status: 500 })
     }
 }
