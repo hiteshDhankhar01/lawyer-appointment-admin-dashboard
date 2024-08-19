@@ -21,7 +21,7 @@ const blogPage: React.FC = async () => {
                 <p className="text-3xl text-white w-full font-bold ">Blogs</p>
                 <Button variant={'secondary'}>
                     <Link href="blogs/new" className='flex gap-1'>
-                    <Plus strokeWidth={1.5} />
+                    <Plus strokeWidth={1.5} /> Create Blog
                     </Link>
                 </Button>
             </div>

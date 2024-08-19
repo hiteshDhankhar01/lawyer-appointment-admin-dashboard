@@ -4,10 +4,14 @@ import User from "../models/User"
 import { connectToDB } from "../mongoDB"
 
 export const getTotalUsers = async () => {
-    await connectToDB()
-    const user = await User.find()
-    const totoalUser = user.length
-    return totoalUser
+    try {
+        await connectToDB();
+        const users = await User.find();
+        return users.length;
+    } catch (error) {
+        console.error("Error fetching total users:", error);
+        throw error;
+    }
 }
 
 export const getAllUsers = async () => {

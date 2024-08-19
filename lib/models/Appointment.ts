@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const appointmentSchema = new mongoose.Schema({
     name: String,
     email: String,
-    phoneNo: Number,
+    phone: Number,
     appointmentDate: Date,
     appointmentTime: String,
     service: String,
