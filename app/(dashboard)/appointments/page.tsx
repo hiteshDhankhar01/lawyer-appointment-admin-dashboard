@@ -13,6 +13,7 @@ const appointmnetPage: React.FC = async () => {
     const plainAppointments = allCustomers.map(appointment => ({
         ...appointment.toObject(),
         _id: appointment._id.toString(),
+        userId: appointment.userId.toString(),
     }));
     return (
         <div className='px-10 py-5 flex flex-col'>

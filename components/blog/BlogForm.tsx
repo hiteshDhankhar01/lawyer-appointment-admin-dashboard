@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Loader from '../custom ui/Loader';
 import { useRouter } from 'next/navigation';
 import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 
 const formSchema = z.object({
     title: z.string().min(2, { message: "Title must be at least 2 characters long." }).max(25, { message: "Title must be at most 25 characters long." }),
@@ -115,9 +116,9 @@ const BlogForm2: React.FC<BlogFormProps> = ({ initialData }) => {
                 {errors.paragraph && <p className="mt-2 text-red-500 text-sm">{errors.paragraph.message}</p>}
             </div>
             <div className='text-right'>
-                <button type="submit" className="px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg shadow-lg text-lg font-semibold tracking-wide text-white transition-all transform ">
+                <Button type="submit" className="px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg shadow-lg text-lg font-semibold tracking-wide text-white transition-all transform ">
                     Submit
-                </button>
+                </Button>
             </div>
 
         </form>

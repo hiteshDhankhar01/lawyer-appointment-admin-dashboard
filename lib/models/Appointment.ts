@@ -9,6 +9,7 @@ const appointmentSchema = new mongoose.Schema({
     service: String,
     status: String,
     notes: String,
+    message: String,
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

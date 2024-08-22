@@ -1,10 +1,12 @@
 type UserType = {
+    _id: string;
     name: string;
     email: string;
     gender: string;
 }
 
 type AppointmentType = {
+    id: string;
     userId: string;
     name: string;
     email: string;
