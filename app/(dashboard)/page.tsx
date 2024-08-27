@@ -1,29 +1,38 @@
-"use client";
+// "use client";
 
+import Chart from "@/components/dashboard/Chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getTotalAppointments, getTotalBlogs, getTotalUsers } from "@/lib/action/action";
+import { getAppointmentsPerMonth, getTotalAppointments, getTotalBlogs, getTotalUsers } from "@/lib/action/action";
 import { Separator } from "@radix-ui/react-separator";
 import { CalendarCheck2, LayoutDashboard, Shapes, Users } from "lucide-react";
-import { useEffect, useState } from "react";
+import CountUp from 'react-countup';
+// import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [totalUsers, setTotalUsers] = useState<number | null>(null);
-    const [totalBlogs, setTotalBlogs] = useState<number | null>(null);
-    const [totalAppointments, setTotalAppointments] = useState<number | null>(null);
+// export default function Home() {
+const Home = async () => {
+  // const [totalUsers, setTotalUsers] = useState<number | null>(null);
+  // const [totalBlogs, setTotalBlogs] = useState<number | null>(null);
+  // const [totalAppointments, setTotalAppointments] = useState<number | null>(null);
+  const users = await getTotalUsers();
+  const blogs = await getTotalBlogs();
+  const appointments = await getTotalAppointments();
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const users = await getTotalUsers();
-    //         const blogs = await getTotalBlogs();
-    //         const appointments = await getTotalAppointments();
 
-    //         setTotalUsers(users);
-    //         setTotalBlogs(blogs);
-    //         setTotalAppointments(appointments);
-    //     };
+  const chartData = await getAppointmentsPerMonth();
 
-    //     fetchData();
-    // }, []);
+  // useEffect(() => {
+  //     const fetchData = async () => {
+  //         const users = await getTotalUsers();
+  //         const blogs = await getTotalBlogs();
+  //         const appointments = await getTotalAppointments();
+
+  //         setTotalUsers(users);
+  //         setTotalBlogs(blogs);
+  //         setTotalAppointments(appointments);
+  //     };
+
+  //     fetchData();
+  // }, []);
 
   return (
     <div className="px-8 py-10 min-h-screen">
@@ -38,7 +47,7 @@ export default function Home() {
               <CalendarCheck2 className="text-gray-400" strokeWidth={1.5} />
             </CardHeader>
             <CardContent>
-              <p className="font-bold text-2xl">34</p>
+              <p className="font-bold text-2xl">{appointments}</p>
             </CardContent>
           </Card>
 
@@ -48,10 +57,7 @@ export default function Home() {
               <Users className="text-gray-400" strokeWidth={1.5} />
             </CardHeader>
             <CardContent>
-              <p className="font-bold text-2xl">
-            44
-
-              </p>
+              <p className="font-bold text-2xl">{users}</p>
             </CardContent>
           </Card>
 
@@ -61,7 +67,7 @@ export default function Home() {
               <Shapes className="text-gray-400" strokeWidth={1.5} />
             </CardHeader>
             <CardContent>
-              <p className="font-bold text-2xl">324</p>
+              <p className="font-bold text-2xl">{blogs}</p>
             </CardContent>
           </Card>
         </div>
@@ -71,10 +77,13 @@ export default function Home() {
             <CardTitle className="text-gray-400 text-lg">Appointments</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, vel eveniet eius, quae maiores similique laboriosam magni aspernatur tenetur culpa aut, repudiandae quas at sunt enim. Explicabo ipsum iusto, perferendis sint fugiat velit amet laudantium culpa recusandae, aspernatur rem quibusdam ducimus corrupti maxime veniam pariatur non praesentium ea. Libero cum natus optio laborum illum unde!</p>
+            <Chart chartData={chartData} />
           </CardContent>
         </Card>
       </Separator>
     </div>
   );
 }
+
+
+export default Home;
