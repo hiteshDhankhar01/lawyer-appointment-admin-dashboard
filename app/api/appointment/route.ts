@@ -5,15 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest) => {
     await connectToDB();
 
-    const { name, email, phone, appointmentDate, appointmentTime, service, status, notes, userId } = await req.json();
+    const { name, email, appointmentDate, service, status, notes, userId } = await req.json();
 
     try {
         const createAppointment = new Appointment({
             name,
             email,
-            phone,
             appointmentDate,
-            appointmentTime,
             service,
             status,
             notes,
