@@ -1,4 +1,4 @@
-"use client"; // Ensures the component is rendered on the client side in a Next.js app
+"use client"
 
 import React from 'react';
 import {
@@ -12,6 +12,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { ChartOptions } from 'chart.js';
 
 ChartJS.register(
     CategoryScale,
@@ -23,14 +24,26 @@ ChartJS.register(
     Legend
 );
 
-const Chart5 = ({ chartData }) => {
-    const options = {
+interface ChartDataType {
+    name: string;
+    appointments?: number;
+    users?: number;
+}
+
+interface ChartProps {
+    chartData: ChartDataType[];
+    name: string;
+}
+
+const Chart: React.FC<ChartProps> = ({ chartData, name }) => {
+
+    const options: ChartOptions<'line'> = {
         responsive: true,
-        maintainAspectRatio: false, // Ensure the chart adjusts to its container's size
+        maintainAspectRatio: false,
         plugins: {
             title: {
                 display: true,
-                text: 'New Appointments by Month',
+                text: `New ${name === 'user' ? 'Users' : 'Appointments'} by Month`,
                 color: '#fff',
                 font: {
                     size: 16,
@@ -44,8 +57,9 @@ const Chart5 = ({ chartData }) => {
         },
         scales: {
             x: {
+                type: 'category',
                 ticks: {
-                    color: '#fff', // Label color for X-axis
+                    color: '#fff',
                 },
             },
             y: {
@@ -53,7 +67,7 @@ const Chart5 = ({ chartData }) => {
                 display: true,
                 position: 'left',
                 ticks: {
-                    color: '#fff', // Label color for Y-axis
+                    color: '#fff',
                 },
             },
         },
@@ -64,12 +78,12 @@ const Chart5 = ({ chartData }) => {
         labels,
         datasets: [
             {
-                label: 'New Appointments',
-                data: chartData.map(item => item.appointments),
+                label: `New ${name === 'user' ? 'Users' : 'Appointments'}`,
+                data: chartData.map(item => name === 'user' ? item.users : item.appointments),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 yAxisID: 'y',
-                pointBackgroundColor: 'rgba(255, 255, 255, 0.8)', // Color for the points
+                pointBackgroundColor: 'rgba(255, 255, 255, 0.8)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
                 pointHoverBorderColor: 'rgba(53, 162, 235, 1)',
@@ -84,4 +98,4 @@ const Chart5 = ({ chartData }) => {
     );
 };
 
-export default Chart5;
+export default Chart;
