@@ -8,6 +8,9 @@ import Loader from '../custom ui/Loader';
 import { useRouter } from 'next/navigation';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import ImageUpload from "@/components/custom ui/ImageUpload";
+import Image from 'next/image';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const formSchema = z.object({
     title: z.string().min(2, { message: "Title must be at least 2 characters long." }).max(25, { message: "Title must be at most 25 characters long." }),
@@ -20,11 +23,12 @@ interface BlogFormProps {
     initialData?: BlogType | null;
 }
 
-const BlogForm2: React.FC<BlogFormProps> = ({ initialData }) => {
+const BlogForm: React.FC<BlogFormProps> = ({ initialData }) => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
+    const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(initialData?.image || null);
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<BlogType>({
+    const form = useForm<BlogType>({
         resolver: zodResolver(formSchema),
         defaultValues: initialData || {
             title: '',
@@ -40,7 +44,6 @@ const BlogForm2: React.FC<BlogFormProps> = ({ initialData }) => {
 
     const onSubmit = async (data: BlogType) => {
         setLoading(true);
-
         try {
             const response = await fetch('/api/blog', {
                 method: 'POST',
@@ -51,79 +54,98 @@ const BlogForm2: React.FC<BlogFormProps> = ({ initialData }) => {
             });
             if (!response.ok) {
                 const errorText = await response.text();
-                alert("some thing is wrong")
+                alert("Something went wrong");
                 console.error('Error creating blog:', errorText);
+                setLoading(false);
+                return;
             }
-
             const responseData = await response.json();
             console.log('Blog created successfully:', responseData);
             router.push('/blogs');
-            setLoading(false);
         } catch (error) {
             console.error('Unexpected error:', error);
         }
+        setLoading(false);
+    };
+
+    const handleImageUpload = (url: string) => {
+        setUploadedImageUrl(url);
+        form.setValue('image', url); // Set the uploaded image URL in the form
     };
 
     return loading ? (
         <Loader />
     ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6 bg-gray-900 text-white rounded-lg shadow-lg backdrop-blur-lg border border-gray-700">
-            <div className="relative group">
-                <label htmlFor="title" className="block text-sm font-medium text-gray-400 group-hover:text-white transition-colors">Title</label>
-                <Input
-                    type="text"
-                    id="title"
-                    {...register('title')}
-                    className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                    placeholder="Enter your title here"
-                />
-                {errors.title && <p className="mt-2 text-red-500 text-sm">{errors.title.message}</p>}
-            </div>
+        <Form {...form} onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-6 bg-gray-900 text-white rounded-lg shadow-lg backdrop-blur-lg border border-gray-700">
+            <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Title</FormLabel>
+                        <FormControl>
+                            <Input type="text" {...field} placeholder="Enter your title here" className="bg-gray-800" />
+                        </FormControl>
+                        <FormMessage>{form.formState.errors.title?.message}</FormMessage>
+                    </FormItem>
+                )}
+            />
 
-            <div className="relative group">
-                <label htmlFor="excerpt" className="block text-sm font-medium text-gray-400 group-hover:text-white transition-colors">Excerpt</label>
-                <Input
-                    type="text"
-                    id="excerpt"
-                    {...register('excerpt')}
-                    className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                    placeholder="Enter a brief excerpt"
-                />
-                {errors.excerpt && <p className="mt-2 text-red-500 text-sm">{errors.excerpt.message}</p>}
-            </div>
+            <FormField
+                control={form.control}
+                name="excerpt"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Excerpt</FormLabel>
+                        <FormControl>
+                            <Input type="text" {...field} placeholder="Enter a brief excerpt" className="bg-gray-800" />
+                        </FormControl>
+                        <FormMessage>{form.formState.errors.excerpt?.message}</FormMessage>
+                    </FormItem>
+                )}
+            />
 
-            <div className="relative group">
-                <label htmlFor="image" className="block text-sm font-medium text-gray-400 group-hover:text-white transition-colors">Image URL</label>
-                <Input
-                    type="text"
-                    id="image"
-                    {...register('image')}
-                    className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                    placeholder="https://example.com/image.jpg"
-                />
-                {errors.image && <p className="mt-2 text-red-500 text-sm">{errors.image.message}</p>}
-            </div>
+            <FormField
+                control={form.control}
+                name="paragraph"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Paragraph</FormLabel>
+                        <FormControl>
+                            <textarea {...field} placeholder="Write your content here..." rows={4} className="bg-gray-800 w-full p-3 border border-gray-600 rounded-lg" />
+                        </FormControl>
+                        <FormMessage>{form.formState.errors.paragraph?.message}</FormMessage>
+                    </FormItem>
+                )}
+            />
 
-            <div className="relative group">
-                <label htmlFor="paragraph" className="block text-sm font-medium text-gray-400 group-hover:text-white transition-colors">Paragraph</label>
-                <textarea
-                    id="paragraph"
-                    {...register('paragraph')}
-                    className="mt-1 p-3 w-full bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                    placeholder="Write your content here..."
-                    rows={4}
-                />
-                {errors.paragraph && <p className="mt-2 text-red-500 text-sm">{errors.paragraph.message}</p>}
-            </div>
-            <div className='text-right'>
-                <Button type="submit" className="px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg shadow-lg text-lg font-semibold tracking-wide text-white transition-all transform ">
+            <FormField
+                control={form.control}
+                name="image"
+                render={() => (
+                    <FormItem>
+                        <FormLabel>Image URL</FormLabel>
+                        <div className="flex items-center">
+                            <ImageUpload onUploadComplete={handleImageUpload} />
+                            {uploadedImageUrl && (
+                                <div className="ml-4">
+                                    <p className="text-sm font-medium text-gray-400">Preview Image:</p>
+                                    <Image src={uploadedImageUrl} alt="Uploaded" height={100} width={150} className="mt-2 rounded-md border border-gray-600" />
+                                </div>
+                            )}
+                        </div>
+                        <FormMessage>{form.formState.errors.image?.message}</FormMessage>
+                    </FormItem>
+                )}
+            />
+
+            <div className="text-right">
+                <Button type="submit" className="px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg shadow-lg text-lg font-semibold tracking-wide text-white transition-all transform">
                     Submit
                 </Button>
             </div>
-
-        </form>
-
+        </Form>
     );
 };
 
-export default BlogForm2;
+export default BlogForm;
